@@ -13,15 +13,16 @@ import json
 from src.SdkTests.Oauth.Model.getSdkJson import getSdkJson
 import requests
 import unittest
+from  shadon.tsetsHttp import testsHttp
 
 class authorizationServerAccessToken(unittest.TestCase):
     def __init__(self):
-        self.url =''
+        self.url ='/oauth/authorizationServer/accessToken'
         pass
     def openUrl(self):
         pass
     def postUrl(self,request):
-        self.getPostData =requests.post(self.url,request)
+        return requests.post(self.url,request)
         pass
     def getSdkJson(self):
         self.result = getSdkJson.getJson(self)
@@ -29,13 +30,20 @@ class authorizationServerAccessToken(unittest.TestCase):
         pass
     def diff(self):
         self.getSdkJson()
-        print (self.result)
-        self.diff =[]
-        for index in len(list(self.result)):
-            #thisResult = self.postUrl(self.url, self.result[index]['request']);
-            #self.diff.append(thisResult);
-            #self.assertEqual(self.diff,self.result[index]['ecpect'])
-            print(index)
+        for index in self.result:
+            aa = testsHttp()
+            aa.set_url(self.url)
+            print(aa.url)
+            testsHttp().set_data(index['request'])
+            thisResult = testsHttp().post()
+            testresult = thisResult.json()
+            for myecpect in index['ecpect']:
+                #print(testresult[myecpect])
+                print(index['ecpect'][myecpect])
+                if index['ecpect'][myecpect] == '*' :
+                    print(2)
+
+
         pass
 
 

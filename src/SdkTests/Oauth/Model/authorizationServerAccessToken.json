@@ -1,14 +1,11 @@
 [
   {
-    "request":"login-tab-r",
-    "error":"invalid_request",
-    "ecpect":"请输入账户名和密码"
-
+    "request":{"grant_type":"client_credentials","client_id":"myawesomeapp","client_secret":"abc123"},
+    "ecpect":{"expires_in":"*","token_type":"*","access_token":"*"}
   },
   {
-    "request":"login-tab-r",
-    "error":"invalid_request",
-    "ecpect":"京东(JD.COM)-正品低价、品质保障、配送及时、轻松购物！"
+    "request":{"grant_type":"password","client_id":"myawesomeapp","client_secret":"abc123","username":"molimoq","password":"123456"},
+    "ecpect":{"expires_in":"*","token_type":"*","access_token":"*","refresh_token":"*"}
   }
 
 ]
