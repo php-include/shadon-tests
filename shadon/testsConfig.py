@@ -8,7 +8,7 @@ from shadon.testsEnv import testsEnv
 class testsConfig():
     def __init__(self):
         self.env = testsEnv().getEnv()
-        self.configDri = self.fileName = os.path.dirname(os.getcwd()) + "/config/" + self.env + "/sdk/sdkConfig.conf"
+        self.configDri = self.fileName = os.path.dirname(__file__) + "/../config/" + self.env + "/sdk/sdkConfig.conf"
 
         pass
     def getFile(self,section,option):
@@ -29,4 +29,4 @@ if __name__ == "__main__":
     test = testsConfig()
     print(test.getFile('dev','api_url'))
     test.getConfig()
-    print(test.port)
+    print(test.api_url)

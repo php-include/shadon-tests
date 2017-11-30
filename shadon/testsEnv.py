@@ -19,5 +19,5 @@ class testsEnv():
 if __name__ == "__main__":
 
     env =testsEnv()
-    env.setEnv("test")
-    print(env.env)
+    env.setEnv("dev")
+    print(env.getEnv())

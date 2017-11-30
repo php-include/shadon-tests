@@ -9,5 +9,5 @@ setup(
     author='php-include',
     author_email='haikun2012@qq.com',
     description='shadon 框架专用自动化测试项目',
-    install_requires=['requests', 'selenium']
+    install_requires=['requests', 'selenium','beautifulsoup4','lxml']
 )

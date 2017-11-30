@@ -3,13 +3,17 @@
 
 from shadon.testsConfig import testsConfig
 import requests
+from requests.packages import urllib3
+urllib3.disable_warnings()
 
 class testsHttp ():
     def __init__(self):
         global host, port, timeout
-        host = testsConfig().getFile('dev','api_url')
-        port = testsConfig().getFile('dev','port')
-        timeout = testsConfig().getFile('dev',"timeout")
+        Config =testsConfig()
+        Config.getConfig()
+        host = Config.api_url
+        port = Config.port
+        timeout = Config.timeout
         self.headers = {}
         self.params = {}
         self.data = {}
@@ -34,7 +38,7 @@ class testsHttp ():
     # defined http get method
     def get(self):
         try:
-            response = requests.get(self.url, params=self.params, headers=self.headers, timeout=float(timeout))
+            response = requests.get(self.url, params=self.params, headers=self.headers, timeout=float(timeout),verify=False)
             # response.raise_for_status()
             return response
         except TimeoutError:
@@ -44,7 +48,7 @@ class testsHttp ():
     # defined http post method
     def post(self):
         try:
-            response = requests.post(self.url, headers=self.headers, data=self.data, files=self.files, timeout=float(timeout))
+            response = requests.post(self.url, headers=self.headers, data=self.data, files=self.files, timeout=float(timeout),verify=False)
             # response.raise_for_status()
             return response
         except TimeoutError:

@@ -1,18 +1,22 @@
-#-*- coding:utf-8 -*-
-# 获取模型层配置的参数和期望值
+#!/usr/bin/evn python
+# -*- coding:utf-8 -*-
 import json
 import os
-class getSdkJson:
-    def __init__(self):
-        pass
+import sys
 
-    def getJson(self):
-        self.fileName = os.path.dirname(os.getcwd()) + "/Model/authorizationServerAccessToken.json"
+class testsGetCase():
+    def __init__(self,moude):
+        self.fileName =  os.path.dirname(__file__) + "/../src/SdkTests/" + moude + "/Model/authorizationServerAccessToken.json"
+        print()
         self.fileInfo = open(self.fileName, "rb+")
         with open(self.fileName) as json_file:
             data = json.load(json_file)
         self.result = data
-        return data
+        pass
+
+    def getCase(self):
+        return self.result
+
     # 按照索引获取指定期望数据
     def getEcpect(self, index):
         return self.result[index]['ecpect']
@@ -22,10 +26,8 @@ class getSdkJson:
         return self.result[index]['request']
 
 
-
-
 if __name__ == "__main__":
-   sdk =getSdkJson()
-   print(sdk.getJson())
-   result =sdk.getEcpect(1)
-   print(result)
+    sdk = testsGetCase('Oauth')
+    print(sdk.getCase())
+    result = sdk.getEcpect(1)
+    print(result)
