@@ -11,13 +11,13 @@ from shadon.testsGetCase import testsGetCase
 from shadon.tsetsHttp import testsHttp
 from shadon.testsToken import testsToken
 
-class testauthorizationServerAccessToken(unittest.TestCase):
+class test%(class_name)s(unittest.TestCase):
     def __init__(self):
-        self.url ='/oauth/authorizationServer/accessToken'
+        self.url ='%(url)s'
         super().__init__()
         pass
     def diff(self):
-        CaseOb = testsGetCase('Oauth')
+        CaseOb = testsGetCase('%(moudle)s','%(apiclass)s','%(apifunction)s')
         # 拿用例
         cases = CaseOb.getCase()
         myhttp = testsHttp()
@@ -37,14 +37,12 @@ class testauthorizationServerAccessToken(unittest.TestCase):
             for myecpect in index['ecpect']:
                 print(myecpect)
                 if index['ecpect'][myecpect] != testresult[myecpect]:
-                   print(1)
-
-                   self.assertEqual(1 , 1, 'ssss')
-
+                    self.assertEqual(index['ecpect'][myecpect] , "*", '案例设置非空不为*')
+                    self.assertIsNot(testresult[myecpect],'null',"为空")
+                else:
+                    self.assertEqual(index['ecpect'][myecpect],testresult[myecpect])
         pass
 
-
-
 if __name__ == "__main__":
-   aut =testauthorizationServerAccessToken()
-   aut.diff()
+   testOb =test%(class_name)s()
+   testOb.diff()

@@ -5,8 +5,8 @@ import os
 import sys
 
 class testsGetCase():
-    def __init__(self,moude):
-        self.fileName =  os.path.dirname(__file__) + "/../src/SdkTests/" + moude + "/Model/authorizationServerAccessToken.json"
+    def __init__(self,moude,apiclass,apifunction):
+        self.fileName =  os.path.dirname(__file__) + "/../src/" + moude + "/Model/"+apiclass+apifunction.capitalize()+".json"
         print()
         self.fileInfo = open(self.fileName, "rb+")
         with open(self.fileName) as json_file:
@@ -27,7 +27,7 @@ class testsGetCase():
 
 
 if __name__ == "__main__":
-    sdk = testsGetCase('Oauth')
+    sdk = testsGetCase('Oauth','authorizationServer','accessToken')
     print(sdk.getCase())
     result = sdk.getEcpect(1)
     print(result)

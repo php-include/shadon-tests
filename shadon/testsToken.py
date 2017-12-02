@@ -10,7 +10,7 @@ class testsToken():
         self.url = '/oauth/authorizationServer/accessToken'
         self.mytestsConfig = testsConfig()
         self.mytestsConfig.getConfig()
-        self.path = os.path.dirname(os.getcwd()) + "/config/" + self.mytestsConfig.env + "/sdk/"
+        self.path = os.path.dirname(__file__) + "/../config/" + self.mytestsConfig.env + "/sdk/"
         self.grant='client_credentials'
         pass
     def setGrant(self,grant):
