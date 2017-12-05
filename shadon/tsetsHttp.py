@@ -1,8 +1,7 @@
 #!/usr/bin/evn python
 # -*- coding:utf-8 -*-
-
-from shadon.testsConfig import testsConfig
 import requests
+from shadon.testsConfig import testsConfig
 from requests.packages import urllib3
 urllib3.disable_warnings()
 
@@ -35,21 +34,17 @@ class testsHttp ():
     def set_files(self, file):
         self.files = file
 
-    # defined http get method
     def get(self):
         try:
             response = requests.get(self.url, params=self.params, headers=self.headers, timeout=float(timeout),verify=False)
-            # response.raise_for_status()
             return response
         except TimeoutError:
             print("Time out!")
             return None
 
-    # defined http post method
     def post(self):
         try:
             response = requests.post(self.url, headers=self.headers, data=self.data, files=self.files, timeout=float(timeout),verify=False)
-            # response.raise_for_status()
             return response
         except TimeoutError:
             print("Time out!")

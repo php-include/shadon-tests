@@ -34,7 +34,6 @@ class testauthorizationServerAccessTokenTest(unittest.TestCase):
             testresult = thisResult.json()
             #对比测试结果和用例区别
             for myecpect in index['ecpect']:
-                print(myecpect)
                 if index['ecpect'][myecpect] != testresult[myecpect]:
                     self.assertEqual(index['ecpect'][myecpect] , "*", '案例设置非空不为*')
                     self.assertIsNot(testresult[myecpect],'null',"为空")

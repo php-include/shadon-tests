@@ -12,19 +12,20 @@ from shadon.tsetsHttp import testsHttp
 from shadon.testsToken import testsToken
 
 class test%(class_name)s(unittest.TestCase):
-    def __init__(self):
-        self.url ='%(url)s'
-        super().__init__()
-        pass
-    def diff(self):
+    def setUp(self):
+         self.url ='%(url)s'
+    def test_%(apifunction)s(self):
         CaseOb = testsGetCase('%(moudle)s','%(apiclass)s','%(apifunction)s')
         # 拿用例
         cases = CaseOb.getCase()
         myhttp = testsHttp()
         # 拿token
+        testsToken().setGrant('password')
         token = testsToken().getToken()
+        apiToken = eval(token)
+
         myhttp.set_url(self.url)
-        header = {"authorization": token}
+        header = {"authorization": apiToken['access_token']}
         myhttp.set_headers(header)
         #获取测试用例
         for index in cases:
@@ -35,7 +36,6 @@ class test%(class_name)s(unittest.TestCase):
             testresult = thisResult.json()
             #对比测试结果和用例区别
             for myecpect in index['ecpect']:
-                print(myecpect)
                 if index['ecpect'][myecpect] != testresult[myecpect]:
                     self.assertEqual(index['ecpect'][myecpect] , "*", '案例设置非空不为*')
                     self.assertIsNot(testresult[myecpect],'null',"为空")
@@ -45,4 +45,4 @@ class test%(class_name)s(unittest.TestCase):
 
 if __name__ == "__main__":
    testOb =test%(class_name)s()
-   testOb.diff()
+   testOb.test_%(apifunction)s()

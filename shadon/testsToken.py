@@ -10,34 +10,33 @@ class testsToken():
         self.url = '/oauth/authorizationServer/accessToken'
         self.mytestsConfig = testsConfig()
         self.mytestsConfig.getConfig()
-        self.path = os.path.dirname(__file__) + "/../config/" + self.mytestsConfig.env + "/sdk/"
+        self.path = os.path.dirname(__file__) + "/../config/" + self.mytestsConfig.env + "/"
         self.grant='client_credentials'
         pass
+
     def setGrant(self,grant):
         self.grant = grant
+        if os.path.exists(self.path + 'token.txt') != True:
+            os.remove(self.path + 'token.txt')
         pass
 
     def getToken(self):
-        if os.path.exists(self.path) != True:
+        if os.path.exists(self.path+ 'token.txt') != True:
             self.setToken(self.grant)
         file = open(self.path + 'token.txt', 'r')
         return file.read()
-        pass
+
     def setToken(self,grant):
         myhttp = testsHttp()
         myhttp.set_url(self.url)
         self.data = {"grant_type": "client_credentials", "client_id": self.mytestsConfig.client_id,"client_secret": self.mytestsConfig.client_secret}
-
         if grant == 'password':
             self.mytestsConfig.grant_type = self.mytestsConfig.getFile('password', 'grant_type')
             self.mytestsConfig.username = self.mytestsConfig.getFile('password', 'username')
             self.mytestsConfig.password = self.mytestsConfig.getFile('password', 'password')
             self.data = {"grant_type": "password", "client_id": self.mytestsConfig.client_id,"client_secret": self.mytestsConfig.client_secret,"username":self.mytestsConfig.username,"password":self.mytestsConfig.password}
-
-        #print(self.data)
         myhttp.set_data(self.data)
         tokenInfo =myhttp.post().json()
-        #print(tokenInfo)
         #如果目录不存在，建立目录
         if os.path.exists(self.path) != True:
             os.makedirs(self.path)
@@ -50,6 +49,6 @@ class testsToken():
 
 
 if __name__ == "__main__":
-    bb = testsToken()
-    bb.setToken('passwords')
-    print(bb.getToken())
+    shadon = testsToken()
+    shadon.setToken('passwords')
+    print(shadon.getToken())

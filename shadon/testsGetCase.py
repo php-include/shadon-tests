@@ -1,8 +1,8 @@
 #!/usr/bin/evn python
 # -*- coding:utf-8 -*-
+
 import json
 import os
-import sys
 
 class testsGetCase():
     def __init__(self,moude,apiclass,apifunction):
