@@ -16,7 +16,7 @@ class testsToken():
 
     def setGrant(self,grant):
         self.grant = grant
-        if os.path.exists(self.path + 'token.txt') != True:
+        if os.path.exists(self.path + 'token.txt') == True:
             os.remove(self.path + 'token.txt')
         pass
 
@@ -50,5 +50,5 @@ class testsToken():
 
 if __name__ == "__main__":
     shadon = testsToken()
-    shadon.setToken('passwords')
+    shadon.setToken('password')
     print(shadon.getToken())

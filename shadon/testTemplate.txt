@@ -20,8 +20,9 @@ class test%(class_name)s(unittest.TestCase):
         cases = CaseOb.getCase()
         myhttp = testsHttp()
         # 拿token
-        testsToken().setGrant('password')
-        token = testsToken().getToken()
+        tokenOb = testsToken()
+        tokenOb.setGrant('password')
+        token = tokenOb.getToken()
         apiToken = eval(token)
 
         myhttp.set_url(self.url)
@@ -34,13 +35,16 @@ class test%(class_name)s(unittest.TestCase):
             #请求接口
             thisResult = myhttp.post()
             testresult = thisResult.json()
-            #对比测试结果和用例区别
-            for myecpect in index['ecpect']:
-                if index['ecpect'][myecpect] != testresult[myecpect]:
-                    self.assertEqual(index['ecpect'][myecpect] , "*", '案例设置非空不为*')
-                    self.assertIsNot(testresult[myecpect],'null',"为空")
-                else:
-                    self.assertEqual(index['ecpect'][myecpect],testresult[myecpect])
+            if testresult['returnType']!= None :
+                #对比测试结果和用例区别
+                for myecpect in index['ecpect']:
+                    if index['ecpect'][myecpect] != testresult[myecpect]:
+                        self.assertEqual(index['ecpect'][myecpect] , "*", '案例设置非空不为*')
+                        self.assertIsNot(testresult[myecpect],'null',"为空")
+                    else:
+                        self.assertEqual(index['ecpect'][myecpect],testresult[myecpect])
+            else:
+                self.assertIsNone(testresult['error'], '存在错误')
         pass
 
 if __name__ == "__main__":
